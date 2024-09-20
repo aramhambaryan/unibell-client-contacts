@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: unibell
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    username: postgres
+    password: postgres
+    url: "jdbc:postgresql://localhost:5432/task_management_system"
+  liquibase:
+    change-log: "classpath:/db/changelog/master.xml"
+server:
+  port: 8080
