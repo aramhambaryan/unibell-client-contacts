@@ -6,6 +6,7 @@ import com.unibell.domain.dto.response.GetClientShortResponse;
 import com.unibell.domain.exception.EntityNotFoundException;
 import com.unibell.mapper.ClientMapper;
 import com.unibell.repository.ClientRepository;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,22 @@ public class ClientService {
                 .getId();
     }
 
-
+    /**
+     * get all clients
+     * */
     public List<GetClientShortResponse> getAll() {
         return clientRepository.findAll().stream()
                 .map(clientMapper::toGetClientShortResponse)
                 .toList();
     }
 
+    /**
+     * get client by id
+     * @param id id of client to find (cannot be null)
+     * @return the client with given id
+     * @throws EntityNotFoundException if client not found
+     * @throws ConstraintViolationException if id is null
+     */
     public GetClientFullResponse getById(@NotNull Long id) {
         return clientRepository.findById(id)
                 .map(clientMapper::toGetClientFullResponse)

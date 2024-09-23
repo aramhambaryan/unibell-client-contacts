@@ -11,6 +11,7 @@ import com.unibell.repository.ClientRepository;
 import com.unibell.repository.ContactRepository;
 import com.unibell.repository.spec.ContactSpecBuilder;
 import com.unibell.validator.ContactValidator;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,12 @@ public class ContactService {
         return contactRepository.save(contact).getId();
     }
 
+    /**
+     * get contacts by given filter
+     * @param filter to find contacts by (cannot be null)
+     * @return list of contacts meeting the filter
+     * @throws ConstraintViolationException if filter is null
+     */
     public List<GetContactShortResponse> getAllByFilter(@NotNull ContactFilter filter) {
         return contactRepository.findAll(contactSpecBuilder.build(filter)).stream()
                 .map(contactMapper::toGetContactShortResponse)
