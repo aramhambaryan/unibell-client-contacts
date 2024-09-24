@@ -1,24 +1,19 @@
 package com.unibell.config;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
+@DirtiesContext
 public interface DbConfig {
 
+    @Container
     PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:16.4-alpine");
 
-    @BeforeAll
-    static void startContainer() {
-        postgreSQLContainer.start();
-    }
-
-    @AfterAll
-    static void stopContainer() {
-        postgreSQLContainer.stop();
-    }
 
     @DynamicPropertySource
     static void setPostgresqlProperties(DynamicPropertyRegistry dynamicPropertyRegistry) {

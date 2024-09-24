@@ -27,7 +27,7 @@ public interface ClientFiller {
     }
 
     private List<Client> getRandomClients() {
-        return IntStream.of(10)
+        return IntStream.range(0, 10)
                 .mapToObj(x -> getRandomClient())
                 .toList();
     }
