@@ -2,6 +2,7 @@ package com.unibell.mapper;
 
 import com.unibell.config.MapperConfiguration;
 import com.unibell.domain.dto.request.CreateContactRequest;
+import com.unibell.domain.dto.response.GetContactFullResponse;
 import com.unibell.domain.dto.response.GetContactShortResponse;
 import com.unibell.domain.entity.Contact;
 import org.mapstruct.Mapper;
@@ -14,4 +15,5 @@ public interface ContactMapper {
     @Mapping(target = "client", ignore = true)
     Contact toContact(CreateContactRequest createContactRequest);
     GetContactShortResponse toGetContactShortResponse(Contact contact);
+    GetContactFullResponse toGetContactFullResponse(Contact contact);
 }
